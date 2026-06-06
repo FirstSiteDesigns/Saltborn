@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALTBORN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Teko:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --charcoal:      #1c1b18;
+  --charcoal-soft: #2a2925;
+  --mid:           #5c5a55;
+  --stone:         #9a9690;
+  --cream:         #f2ede6;
+  --white:         #faf9f6;
+  --accent:        #c8a84b;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--charcoal);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+img { display: block; width: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── ANNOUNCE ─── */
+.announce {
+  background: var(--charcoal);
+  color: var(--stone);
+  text-align: center;
+  padding: 9px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.announce span { color: var(--accent); }
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 60px;
+  border-bottom: 1px solid rgba(28,27,24,0.1);
+}
+.nav-links {
+  display: flex; gap: 32px; list-style: none;
+}
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--mid);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--charcoal); }
+.nav-logo {
+  font-family: 'Rubik Dirt', cursive;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: var(--charcoal);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 1px;
+}
+
+/* ─── HERO ─── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  height: 94svh;
+  min-height: 580px;
+  gap: 4px;
+}
+.hero-col {
+  position: relative;
+  overflow: hidden;
+}
+.hero-col img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+.hero-col:hover img { transform: scale(1.03); }
+
+.hero-side-tag {
+  position: absolute;
+  bottom: 24px;
+  left: 0; right: 0;
+  text-align: center;
+}
+.hero-side-tag span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: rgba(28,27,24,0.55);
+  padding: 6px 14px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-center-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 20%,
+    rgba(28,27,24,0.08) 50%,
+    rgba(28,27,24,0.72) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding: 32px 12px;
+}
+.hero-est {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.hero-h1 {
+  font-family: 'Rubik Dirt', cursive;
+  font-size: clamp(52px, 11vw, 96px);
+  line-height: 0.88;
+  color: #fff;
+}
+.hero-h1 em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.65em;
+  color: rgba(242,237,230,0.8);
+  display: block;
+  letter-spacing: 1px;
+  margin-top: 6px;
+  font-weight: 400;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 32px; right: 24px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.hero-scroll span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  writing-mode: vertical-rl;
+}
+.hero-scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ─── TICKER ─── */
+.ticker {
+  background: var(--charcoal);
+  padding: 13px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex;
+  animation: ticker 22s linear infinite;
+}
+.ticker-item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--stone);
+  padding: 0 32px;
+}
+.ticker-item .dot { color: var(--accent); margin: 0 8px; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ─── SHARED UTILITIES ─── */
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 10px;
+}
+.eyebrow.gold { color: var(--accent); }
+
+.headline {
+  font-family: 'Teko', sans-serif;
+  font-size: clamp(44px, 10vw, 80px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: var(--charcoal);
+}
+.headline em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--stone);
+  font-size: 0.85em;
+}
+.headline.light { color: #fff; }
+.headline.light em { color: rgba(255,255,255,0.45); }
+
+/* ─── INTRO ─── */
+.intro {
+  padding: 72px 28px 0;
+}
+.intro-text { max-width: 560px; }
+.intro-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--mid);
+  margin-top: 20px;
+}
+.intro-rule {
+  width: 40px; height: 2px;
+  background: var(--accent);
+  margin: 28px 0;
+}
+.intro-img-wrap {
+  margin-top: 48px;
+  position: relative;
+}
+.intro-img-main {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+}
+.intro-img-float {
+  position: absolute;
+  bottom: -32px; right: 0;
+  width: 46%;
+  height: 280px;
+  object-fit: cover;
+  border: 5px solid var(--white);
+  box-shadow: 0 20px 60px rgba(28,27,24,0.2);
+}
+
+/* ─── SHOP GRID ─── */
+.shop { padding: 100px 0 0; }
+.shop-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 28px;
+  margin-bottom: 32px;
+}
+.shop-all {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  flex-shrink: 0;
+}
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+.prod-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  cursor: pointer;
+}
+.prod-item img {
+  aspect-ratio: 3/4;
+  transition: transform 0.7s ease;
+}
+.prod-item:hover img { transform: scale(1.05); }
+.prod-info {
+  padding: 16px 18px 22px;
+  background: var(--white);
+}
+.prod-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 4px;
+}
+.prod-name {
+  font-family: 'Teko', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  line-height: 1;
+}
+.prod-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--mid);
+  margin-top: 6px;
+}
+.prod-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  background: var(--charcoal);
+  color: var(--cream);
+}
+.prod-badge.gold {
+  background: var(--accent);
+  color: var(--charcoal);
+}
+
+/* ─── FEATURE DARK ─── */
+.feature-dark {
+  background: var(--charcoal);
+  margin-top: 4px;
+  overflow: hidden;
+}
+.feature-dark-img { overflow: hidden; }
+.feature-dark-img img {
+  height: 480px;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.8s ease;
+}
+.feature-dark-img:hover img { transform: scale(1.03); }
+.feature-dark-copy { padding: 52px 28px 56px; }
+.feature-dark-copy p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--stone);
+  margin-top: 20px;
+  max-width: 420px;
+}
+.feature-dark-rule {
+  width: 40px; height: 2px;
+  background: var(--accent);
+  margin: 28px 0;
+}
+.btn-light {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 1px solid rgba(255,255,255,0.25);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream);
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-light:hover { background: var(--cream); color: var(--charcoal); border-color: var(--cream); }
+
+/* ─── LIFESTYLE SCROLL ─── */
+.lifestyle { padding: 80px 0 0; }
+.lifestyle-head { padding: 0 28px; margin-bottom: 28px; }
+.ls-scroll {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.ls-scroll::-webkit-scrollbar { display: none; }
+.ls-card {
+  flex: 0 0 74vw;
+  max-width: 310px;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+}
+.ls-card img {
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.ls-card:hover img { transform: scale(1.04); }
+.ls-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 48px 16px 16px;
+  background: linear-gradient(to top, rgba(28,27,24,0.7) 0%, transparent 100%);
+}
+.ls-caption p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(242,237,230,0.9);
+}
+
+/* ─── QUOTE BLEED ─── */
+.quote-section {
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.quote-section img {
+  width: 100%;
+  height: 68svh;
+  min-height: 400px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.quote-over {
+  position: absolute; inset: 0;
+  background: rgba(28,27,24,0.58);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 28px;
+}
+.big-q {
+  font-family: 'Rubik Dirt', cursive;
+  font-size: clamp(40px, 11vw, 84px);
+  line-height: 0.9;
+  color: #fff;
+  max-width: 600px;
+}
+.big-q em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.75em;
+  font-weight: 400;
+  color: rgba(200,168,75,0.9);
+  display: block;
+  margin-top: 8px;
+}
+.quote-attr {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 24px;
+}
+
+/* ─── CATEGORIES ─── */
+.categories { padding: 80px 0 0; }
+.categories-head { padding: 0 28px; margin-bottom: 28px; }
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+.cat-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.cat-item img {
+  aspect-ratio: 1/1;
+  transition: transform 0.7s ease;
+}
+.cat-item.wide { grid-column: span 2; }
+.cat-item.wide img { aspect-ratio: 16/7; }
+.cat-item:hover img { transform: scale(1.05); }
+.cat-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28,27,24,0.75) 0%, transparent 55%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 20px;
+  transition: background 0.4s;
+}
+.cat-item:hover .cat-overlay {
+  background: linear-gradient(to top, rgba(28,27,24,0.85) 0%, rgba(28,27,24,0.1) 60%);
+}
+.cat-name {
+  font-family: 'Teko', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+}
+.cat-count {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* ─── CRAFT ─── */
+.craft {
+  padding: 80px 28px;
+  background: var(--cream);
+}
+.craft-steps { margin-top: 48px; }
+.craft-step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(28,27,24,0.1);
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.craft-step.in { opacity: 1; transform: translateX(0); }
+.craft-num {
+  font-family: 'Teko', sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: rgba(28,27,24,0.18);
+  line-height: 1;
+  padding-top: 2px;
+}
+.craft-title {
+  font-family: 'Teko', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.craft-body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--mid);
+}
+
+/* ─── REVIEWS ─── */
+.reviews { padding: 80px 28px; }
+.review-grid {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(28,27,24,0.1);
+}
+.review-card {
+  background: var(--white);
+  padding: 28px 24px;
+}
+.stars { color: var(--accent); font-size: 12px; letter-spacing: 3px; margin-bottom: 14px; }
+.review-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--charcoal);
+}
+.review-author {
+  margin-top: 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ─── CTA ─── */
+.cta-dark {
+  background: var(--charcoal-soft);
+  padding: 72px 28px;
+  text-align: center;
+}
+.cta-dark p.body {
+  font-size: 14px;
+  color: var(--stone);
+  line-height: 1.8;
+  margin-top: 16px;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 32px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-form input {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 15px 18px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 0.5px;
+}
+.cta-form input::placeholder { color: var(--mid); }
+.cta-form input:focus { border-color: var(--accent); }
+.cta-form button {
+  background: var(--accent);
+  border: none;
+  padding: 15px;
+  font-family: 'Teko', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.cta-form button:hover { opacity: 0.88; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--charcoal);
+  padding: 56px 28px 36px;
+}
+.footer-logo {
+  font-family: 'Rubik Dirt', cursive;
+  font-size: 36px;
+  letter-spacing: 1px;
+  color: var(--cream);
+  margin-bottom: 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.footer-col-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--stone);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--cream); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-copy {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+}
+.footer-social { display: flex; gap: 24px; }
+.footer-social a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--stone);
+  transition: color 0.2s;
+}
+.footer-social a:hover { color: var(--cream); }
+
+/* ─── REVEALS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+.stagger > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s }
+.stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.07s }
+.stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.14s }
+.stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.21s }
+.stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.28s }
+
+.hero-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroIn 0.9s ease forwards;
+}
+@keyframes heroIn { to { opacity:1; transform:translateY(0); } }
+
+@media (max-width: 440px) {
+  .nav-links { display: none; }
+  nav { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="announce">Free shipping Australia-wide on orders over $99 <span>✦</span> Est. 2012</div>
+
+<!-- NAV -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#gear">Gear</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-logo">SALTBORN</div>
+  <a href="#shop" class="nav-cta">Shop Now</a>
+</nav>
+
+<!-- HERO: SB_1 / SB_5 (centre) / SB_3 -->
+<div class="hero">
+  <div class="hero-col">
+    <img src="SB_1.png" alt="Fishing Club Tee">
+    <div class="hero-side-tag"><span>Fishing Club Tee</span></div>
+  </div>
+  <div class="hero-col">
+    <img src="SB_5.png" alt="Built for the Salt">
+    <div class="hero-center-overlay">
+      <p class="hero-est hero-enter" style="animation-delay:0.4s">Est. 2012</p>
+      <h1 class="hero-h1 hero-enter" style="animation-delay:0.6s">BUILT<br>FOR THE<br>SALT<em>gear made to last</em></h1>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </div>
+  <div class="hero-col">
+    <img src="SB_8.png" alt="Saltborn Hoodie">
+    <div class="hero-side-tag"><span>Wander Fish Hoodie</span></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">Wander<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Fish<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Live Free<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Est. 2012<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Built for the Salt<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Hard Gear<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Fishing Club<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Wander<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Fish<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Live Free<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Est. 2012<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Built for the Salt<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Hard Gear<span class="dot"> ✦ </span></span>
+    <span class="ticker-item">Fishing Club<span class="dot"> ✦ </span></span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro" id="about">
+  <div class="intro-text reveal">
+    <p class="eyebrow">Who We Are</p>
+    <h2 class="headline">Made for<br><em>real days</em><br>on the water.</h2>
+    <div class="intro-rule"></div>
+    <p class="intro-body">We're not a surf brand. We're not a fishing shop. We're the crew that shows up before sunrise, rigs up in the dark, and doesn't leave until the fish stop biting and the coldies are gone.<br><br>Everything we make is built for exactly that kind of day.</p>
+  </div>
+  <div class="intro-img-wrap reveal" style="transition-delay:0.15s">
+    <img class="intro-img-main" src="SB_7.png" alt="Mates on the water">
+    <img class="intro-img-float" src="SB_3.png" alt="Gear">
+  </div>
+</section>
+
+<!-- SHOP GRID -->
+<section class="shop" id="shop">
+  <div class="shop-head reveal">
+    <div>
+      <p class="eyebrow">New Arrivals</p>
+      <h2 class="headline" style="font-size:clamp(36px,8vw,64px)">Men's<br><em>Clothing</em></h2>
+    </div>
+    <a href="#" class="shop-all">View All</a>
+  </div>
+  <div class="prod-grid stagger">
+    <div class="prod-item">
+      <img src="SB_1.png" alt="Fishing Club Tee">
+      <div class="prod-badge gold">New</div>
+      <div class="prod-info">
+        <p class="prod-label">Apparel</p>
+        <p class="prod-name">Fishing Club Tee</p>
+        <p class="prod-price">$54.99 AUD</p>
+      </div>
+    </div>
+    <div class="prod-item">
+      <img src="SB_8.png" alt="Out Here Hoodie">
+      <div class="prod-badge">Best Seller</div>
+      <div class="prod-info">
+        <p class="prod-label">Apparel</p>
+        <p class="prod-name">Out Here Hoodie</p>
+        <p class="prod-price">$89.99 AUD</p>
+      </div>
+    </div>
+    <div class="prod-item">
+      <img src="SB_6.png" alt="Esky Hard Gear">
+      <div class="prod-info">
+        <p class="prod-label">Hard Gear</p>
+        <p class="prod-name">Hard Gear Esky</p>
+        <p class="prod-price">$349.99 AUD</p>
+      </div>
+    </div>
+    <div class="prod-item">
+      <img src="SB_2.png" alt="Stubby Holder">
+      <div class="prod-badge gold">New</div>
+      <div class="prod-info">
+        <p class="prod-label">Drinkware</p>
+        <p class="prod-name">Stubby Holder</p>
+        <p class="prod-price">$19.99 AUD</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARD GEAR FEATURE: SB_3 -->
+<div class="feature-dark" id="gear">
+  <div class="feature-dark-img">
+    <img src="SB_2.png" alt="Hard Gear">
+  </div>
+  <div class="feature-dark-copy reveal">
+    <p class="eyebrow gold">Hard Gear</p>
+    <h2 class="headline light">Keep it<br><em>cold.</em></h2>
+    <div class="feature-dark-rule"></div>
+    <p>Built for two days on the reef. Foam-core insulated walls, marine-grade hardware, and a logo that makes the campsite look considerably better.</p>
+    <a href="#" class="btn-light" style="margin-top:28px">Shop Hard Gear</a>
+  </div>
+</div>
+
+<!-- LIFESTYLE SCROLL -->
+<section class="lifestyle">
+  <div class="lifestyle-head reveal">
+    <p class="eyebrow">Out in the Field</p>
+    <h2 class="headline" style="font-size:clamp(36px,8vw,64px)">The <em>Crew</em></h2>
+  </div>
+  <div class="ls-scroll">
+    <div class="ls-card">
+      <img src="SB_7.png" alt="">
+      <div class="ls-caption"><p>"First light, cold hands, colder drinks."</p></div>
+    </div>
+    <div class="ls-card">
+      <img src="SB_2.png" alt="">
+      <div class="ls-caption"><p>"Cold one in hand, sun going down."</p></div>
+    </div>
+    <div class="ls-card">
+      <img src="SB_8.png" alt="">
+      <div class="ls-caption"><p>"Sun's up. Lines in. Let's go."</p></div>
+    </div>
+    <div class="ls-card">
+      <img src="SB_5.png" alt="">
+      <div class="ls-caption"><p>"Morning coffee on the water."</p></div>
+    </div>
+    <div class="ls-card">
+      <img src="SB_1.png" alt="">
+      <div class="ls-caption"><p>"The uniform."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE BLEED: SB_4 -->
+<div class="quote-section">
+  <img src="SB_7.png" alt="Made to Last">
+  <div class="quote-over">
+    <p class="big-q">MADE<br>TO<br><em>last</em></p>
+    <p class="quote-attr">— Saltborn, Since 2012</p>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="categories-head reveal">
+    <p class="eyebrow">Browse the Range</p>
+    <h2 class="headline" style="font-size:clamp(36px,8vw,64px)">The <em>Collection</em></h2>
+  </div>
+  <div class="cat-grid stagger">
+    <div class="cat-item">
+      <img src="SB_1.png" alt="Tees & Shirts">
+      <div class="cat-overlay">
+        <p class="cat-name">Tees & Shirts</p>
+        <p class="cat-count">12 Products</p>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img src="SB_8.png" alt="Hoodies">
+      <div class="cat-overlay">
+        <p class="cat-name">Hoodies</p>
+        <p class="cat-count">6 Products</p>
+      </div>
+    </div>
+    <div class="cat-item wide">
+      <img src="SB_7.png" alt="Hard Gear — Eskies & Drinkware">
+      <div class="cat-overlay">
+        <p class="cat-name">Hard Gear — Eskies & Drinkware</p>
+        <p class="cat-count">8 Products</p>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img src="SB_3.png" alt="Keep Cups">
+      <div class="cat-overlay">
+        <p class="cat-name">Keep Cups</p>
+        <p class="cat-count">3 Products</p>
+      </div>
+    </div>
+    <div class="cat-item">
+      <img src="SB_4.png" alt="Crew Necks">
+      <div class="cat-overlay">
+        <p class="cat-name">Crew Necks</p>
+        <p class="cat-count">4 Products</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT -->
+<section class="craft reveal">
+  <p class="eyebrow">The Method</p>
+  <h2 class="headline" style="font-size:clamp(36px,8vw,64px)">How we<br><em>build it</em></h2>
+  <div class="craft-steps">
+    <div class="craft-step">
+      <div class="craft-num">01</div>
+      <div>
+        <p class="craft-title">Drawn by hand</p>
+        <p class="craft-body">Every design starts on paper — raw, rough, real. No shortcuts. Just ideas from people who actually use the gear.</p>
+      </div>
+    </div>
+    <div class="craft-step" style="transition-delay:0.1s">
+      <div class="craft-num">02</div>
+      <div>
+        <p class="craft-title">Built to last</p>
+        <p class="craft-body">Premium blanks, heavy-duty hardware. If it can't survive a weekend on the water, it doesn't leave the workshop.</p>
+      </div>
+    </div>
+    <div class="craft-step" style="transition-delay:0.2s">
+      <div class="craft-num">03</div>
+      <div>
+        <p class="craft-title">Tested in the field</p>
+        <p class="craft-body">Our crew wears it, fishes in it, camps in it. If something's not right, it goes back to the drawing board.</p>
+      </div>
+    </div>
+    <div class="craft-step" style="transition-delay:0.3s">
+      <div class="craft-num">04</div>
+      <div>
+        <p class="craft-title">Shipped to your door</p>
+        <p class="craft-body">Fast, tracked, and ready to get wet. Wherever in Australia you're headed next, we'll meet you there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="reveal">
+    <p class="eyebrow">The Club Speaks</p>
+    <h2 class="headline" style="font-size:clamp(36px,8vw,64px)">What the<br><em>boys say</em></h2>
+  </div>
+  <div class="review-grid stagger">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Been wearing Saltborn for three seasons. The fishing shirts hold up better than anything I've tried. Bought four for the whole crew."</p>
+      <p class="review-author">— Jake B., Airlie Beach</p>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"The esky kept everything cold for two full days on the reef. Lives on the boat permanently now. Wouldn't go out without it."</p>
+      <p class="review-author">— Mat C., Bowen</p>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Stubby holders always disappear on a trip. We've got a drawer full now. Absolute legends."</p>
+      <p class="review-author">— Tom W., Townsville</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-dark" id="contact">
+  <div class="reveal">
+    <p class="eyebrow gold">Join the Club</p>
+    <h2 class="headline light">Get early<br><em>drops</em></h2>
+    <p class="body">Exclusive drops, field content, and deals before anyone else sees them.</p>
+  </div>
+  <div class="cta-form reveal" style="transition-delay:0.15s">
+    <input type="email" placeholder="your@email.com.au">
+    <button type="button">Sign Me Up</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SALTBORN</div>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <p class="footer-col-label">Shop</p>
+      <a href="#">Tees & Shirts</a>
+      <a href="#">Hoodies</a>
+      <a href="#">Caps</a>
+      <a href="#">Stubby Holders</a>
+      <a href="#">Hard Gear</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-label">Info</p>
+      <a href="#">About Us</a>
+      <a href="#">Stockists</a>
+      <a href="#">Wholesale</a>
+      <a href="#">Shipping</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Saltborn Pty Ltd — All rights reserved</p>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const t = document.getElementById('ticker');
+  if (t) t.innerHTML += t.innerHTML;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .stagger, .craft-step').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
